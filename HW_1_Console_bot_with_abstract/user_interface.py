@@ -5,17 +5,17 @@ from pyowm.commons.exceptions import NotFoundError
 
 class PrintInfo(ABC):
     @abstractmethod
-    def get_info(self, _):
+    def get_info(self, *args, **kwargs):
         pass
 
 
 class PrintHello(PrintInfo):
-    def get_info():
+    def get_info(self):
         return "Can I help you? Write something to me:) You can see the avaliable commands by 'help' command"
 
 
 class PrintAvaliableCommands(PrintInfo):
-    def get_info():
+    def get_info(self):
         return """
     Use "add" *name* *phone* to add new user.
     Use "change" *name* *phone* to change user\'s number.
@@ -44,17 +44,12 @@ class PrintAllBook(PrintInfo):
 
 
 class PrintUserInfo(PrintInfo):
-    def get_info(user, phones):
-        return f"{user} : {phones}"
-
-
-class PrintWeather(PrintInfo):
-    def get_info(self, _):
-        return super().get_info()
+    def get_info(self, phones):
+        return f"{self} : {phones}"
 
 
 class PrintSearchResult(PrintInfo):
-    def get_info(self, args):
+    def get_info(self, *args):
         records = self.search(args[0].capitalize())
         searched_records = " "
         for record in records:
@@ -63,6 +58,6 @@ class PrintSearchResult(PrintInfo):
 
 
 class PrintExitMessage(PrintInfo):
-    def get_info():
+    def get_info(self):
         print("Good Bye!")
         return "exit"
