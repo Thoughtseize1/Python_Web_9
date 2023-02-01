@@ -32,7 +32,6 @@ class PrintAvaliableCommands(PrintInfo):
 class PrintAllBook(PrintInfo):
     def get_info(self):
         if self.items():
-            print("---- ИЗ АБСТРАКТНОГО КЛАССА -----!")
             print("YOUR CONTACTS BOOK:")
             for name, record in self.data.items():
                 print(f"Name: {name}")
