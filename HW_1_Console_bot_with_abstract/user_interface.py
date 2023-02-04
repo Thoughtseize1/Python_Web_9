@@ -10,12 +10,14 @@ class PrintInfo(ABC):
 
 
 class PrintHello(PrintInfo):
-    def get_info(self):
+    @staticmethod
+    def get_info():
         return "Can I help you? Write something to me:) You can see the avaliable commands by 'help' command"
 
 
 class PrintAvaliableCommands(PrintInfo):
-    def get_info(self):
+    @staticmethod
+    def get_info():
         return """
     Use "add" *name* *phone* to add new user.
     Use "change" *name* *phone* to change user\'s number.
@@ -58,6 +60,7 @@ class PrintSearchResult(PrintInfo):
 
 
 class PrintExitMessage(PrintInfo):
-    def get_info(self):
+    @staticmethod
+    def get_info():
         print("Good Bye!")
         return "exit"

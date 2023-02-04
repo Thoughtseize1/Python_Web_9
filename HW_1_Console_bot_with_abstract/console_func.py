@@ -61,12 +61,12 @@ def delete_user(args):
 
 
 def exit(_):
-    PrintExitMessage.get_info(_)
+    PrintExitMessage.get_info()
     return "exit"
 
 
 def hello(_):
-    return PrintHello.get_info(_)
+    return PrintHello.get_info()
 
 
 @input_error
@@ -81,7 +81,7 @@ def save_func(_):
 
 
 def avaliable_comands(_):
-    return PrintAvaliableCommands.get_info(_)
+    return PrintAvaliableCommands.get_info()
 
 
 @input_error
