@@ -71,7 +71,7 @@ class Phone(Field):
     def value(self, value):
         if not value.isnumeric():
             raise ValueError("Phones are wrong")
-        if len(value) < 10 or len(value) > 12:
+        if len(value) < 10 or len(value) >+ 12:
             raise ValueError("Phone must have 10 symbols")
         self._value = value
 
