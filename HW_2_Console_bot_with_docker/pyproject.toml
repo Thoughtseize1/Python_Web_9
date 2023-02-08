@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "console-bot-with-docker"
+version = "0.1.0"
+description = ""
+authors = ["Nikita Sherstianykh <n.sherstianykh@gmail.com>"]
+readme = "README.md"
+packages = [{include = "console_bot_with_docker"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyowm = "3.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
