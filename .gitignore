@@ -8,3 +8,6 @@ HW_2_Console_bot_with_docker/__pycache__
 HW_3_Sorting_with_threads/__pycache__/file_parser.cpython-310.pyc
 HW_3_Sorting_with_threads/__pycache__/normalize.cpython-310.pyc
 HW_3_Sorting_with_threads/test_dir
+HW_4_Web/client.py
+HW_4_Web/teksk.py
+HW_4_Web/server.py
