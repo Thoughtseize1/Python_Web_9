@@ -65,7 +65,7 @@ def sorting_copy(path: Path, semaphore: Semaphore):
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format="%(message)s")
     base_folder = Path(source)
-    output_folder = Path(output)
+    output_folder = Path(base_folder, output)
 
     folders.append(base_folder)
     grabs_folder(base_folder)
