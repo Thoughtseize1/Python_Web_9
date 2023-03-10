@@ -6,12 +6,15 @@ import mimetypes
 import urllib.parse
 from threading import Thread
 import socket
+import logging
+
 
 MAIN_DIR = pathlib.Path("front-init")
 DIR_WITH_DATA = MAIN_DIR / "storage"
 FILE_WITH_DATA = "data.json"
-HOST_IP = socket.gethostname()
+HOST_IP = "127.0.0.1"
 UDP_PORT = 5000
+BUFFER = 10240
 
 
 class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
@@ -63,8 +66,9 @@ class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
         client_socket.close()
 
 
-def run_http_server():
-    http = HTTPServer(("localhost", 3000), CustomHTTPRequestHandler)
+def run_http_server(server=HTTPServer, handler=CustomHTTPRequestHandler):
+    address = ("0.0.0.0", 3000)
+    http = server(address, handler)
     try:
         http.serve_forever()
     except KeyboardInterrupt:
@@ -75,12 +79,16 @@ def run_socket_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     server = HOST_IP, UDP_PORT
     server_socket.bind(server)
-    while True:
-        data, address = server_socket.recvfrom(1024)
-        save_jo_json(DIR_WITH_DATA, data)
-        if not data:
-            break
-    server_socket.close()
+    try:
+        while True:
+            data, _ = server_socket.recvfrom(BUFFER)
+            save_jo_json(DIR_WITH_DATA, data)
+            if not data:
+                break
+    except KeyboardInterrupt:
+        logging.debug(f"Socket server stopped!")
+    finally:
+        server_socket.close()
 
 
 def save_jo_json(path, msg):
@@ -91,23 +99,35 @@ def save_jo_json(path, msg):
     try:
         with open(path / FILE_WITH_DATA, "r") as fh:
             data_json = json.load(fh)
-    except:
-        ...
+    except ValueError:
+        logging.debug(f"Failed parse data")
+    except FileNotFoundError:
+        logging.debug(f"Read file not found")
 
-    try:
-        now = datetime.now()
-        date_string = now.strftime("%d-%m-%Y %H:%M:%S")
-        data_json[date_string] = data
-        print(date_string)
-        with open(path / FILE_WITH_DATA, "w", encoding="utf-8") as fd:
-            json.dump(data_json, fd, ensure_ascii=False)
-    except:
-        ...
+    now = datetime.now()
+    date_string = now.strftime("%d-%m-%Y %H:%M:%S")
+    data_json[date_string] = data
+    print(date_string)
+    if not path.exists():
+        path.mkdir()
+    with open(path / FILE_WITH_DATA, "w", encoding="utf-8") as fd:
+        json.dump(data_json, fd, ensure_ascii=False)
 
 
-if __name__ == "__main__":
+def main():
     thread_for_http_server = Thread(target=run_http_server)
     thread_for_http_server.start()
 
     thread_for_socket_server = Thread(target=run_socket_server)
     thread_for_socket_server.start()
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG, format="%(message)s")
+    STORAGE_DIR = pathlib.Path().joinpath("data")
+    FILE_STORAGE = STORAGE_DIR / "data.json"
+    if not FILE_STORAGE.exists():
+        with open(FILE_STORAGE, "w", encoding="utf-8") as fd:
+            json.dump({}, fd, ensure_ascii=False)
+
+    main()
