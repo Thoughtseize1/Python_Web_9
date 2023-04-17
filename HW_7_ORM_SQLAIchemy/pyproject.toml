@@ -8,6 +8,10 @@ packages = [{include = "hw_7_orm_sqlaichemy"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+sqlalchemy = "^2.0.9"
+faker = "^18.4.0"
+alembic = "^1.10.3"
+psycopg2 = "^2.9.6"
 
 
 [build-system]
