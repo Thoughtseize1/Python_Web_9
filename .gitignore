@@ -22,3 +22,6 @@ HW_7_ORM_SQLAIchemy/.idea/misc.xml
 HW_7_ORM_SQLAIchemy/.idea/modules.xml
 HW_7_ORM_SQLAIchemy/.idea/toolchains.xml
 HW_7_ORM_SQLAIchemy/.idea/vcs.xml
+HW_7_ORM_SQLAIchemy/migrations/__pycache__/env.cpython-310.pyc
+HW_7_ORM_SQLAIchemy/src/__pycache__/db.cpython-310.pyc
+HW_7_ORM_SQLAIchemy/src/__pycache__/models.cpython-310.pyc
