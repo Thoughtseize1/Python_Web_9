@@ -166,5 +166,51 @@ def select_10(teacher_id=1, student_id=12):
     return [row[0] for row in result]
 
 
+def select_11(teacher_id=2, student_id=21):
+    """
+    Середній бал, який певний викладач ставить певному студентові
+    """
+    result = (
+        session.query(
+            func.round(func.avg(Grade.grade), 1).label('Success_rate'),
+            Student.fullname,
+            Teacher.fullname
+            )
+        .select_from(Grade)
+        .join(Discipline)
+        .join(Student)
+        .join(Teacher)
+        .filter(Student.id == student_id, Teacher.id == teacher_id)
+        .group_by(Student.id, Teacher.id)
+        .all()
+        )
+
+    return result[0] if result else tuple(result)
+
+
+
+def select_12(teacher_id=2, student_id=21):
+    """
+    Середній бал, який певний викладач ставить певному студентові
+    """
+    result = (
+        session.query(
+            func.round(func.avg(Grade.grade), 1).label('Success_rate'),
+            Student.fullname,
+            Teacher.fullname
+            )
+        .select_from(Grade)
+        .join(Discipline)
+        .join(Student)
+        .join(Teacher)
+        .filter(Student.id == student_id, Teacher.id == teacher_id)
+        .group_by(Student.id, Teacher.id)
+        .all()
+        )
+
+    return result[0] if result else tuple(result)
+
+
 if __name__ == '__main__':
-    print(select_10())
+    for i in range(25):
+        print(i, " __ ", select_11(student_id=i))
