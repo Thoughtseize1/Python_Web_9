@@ -175,7 +175,7 @@ def select_11(teacher_id=2, student_id=21):
             func.round(func.avg(Grade.grade), 1).label('Success_rate'),
             Student.fullname,
             Teacher.fullname
-            )
+        )
         .select_from(Grade)
         .join(Discipline)
         .join(Student)
@@ -183,13 +183,12 @@ def select_11(teacher_id=2, student_id=21):
         .filter(Student.id == student_id, Teacher.id == teacher_id)
         .group_by(Student.id, Teacher.id)
         .all()
-        )
+    )
 
     return result[0] if result else tuple(result)
 
 
-
-def select_12(group_id=3, discipline_id = 1):
+def select_12(group_id=3, discipline_id=1):
     """Оцінки студентів у певній групі з певного предмета на останньому занятті.
     """
     sub_query = (
