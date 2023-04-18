@@ -189,28 +189,39 @@ def select_11(teacher_id=2, student_id=21):
 
 
 
-def select_12(teacher_id=2, student_id=21):
+def select_12(group_id=3, discipline_id = 1):
+    """Оцінки студентів у певній групі з певного предмета на останньому занятті.
     """
-    Середній бал, який певний викладач ставить певному студентові
-    """
+    sub_query = (
+        session.query(
+            Grade.date_of
+        )
+        .select_from(Grade)
+        .join(Student)
+        .join(Group)
+        .filter(Group.id == group_id, Grade.discipline_id == discipline_id)
+        .order_by(desc(Grade.date_of))
+        .limit(1)
+        .all()
+    )
     result = (
         session.query(
-            func.round(func.avg(Grade.grade), 1).label('Success_rate'),
+            Grade.grade,
             Student.fullname,
-            Teacher.fullname
-            )
+            Group.name,
+            Grade.date_of
+        )
         .select_from(Grade)
         .join(Discipline)
         .join(Student)
-        .join(Teacher)
-        .filter(Student.id == student_id, Teacher.id == teacher_id)
-        .group_by(Student.id, Teacher.id)
+        .join(Group)
+        .filter(Group.id == group_id, Discipline.id == discipline_id, Grade.date_of == sub_query[0][0])
+        .group_by(Student.id, Group.id, Discipline.id, Grade.date_of, Grade.id)
+        .order_by(desc(Grade.grade))
         .all()
-        )
-
-    return result[0] if result else tuple(result)
+    )
+    return result
 
 
 if __name__ == '__main__':
-    for i in range(25):
-        print(i, " __ ", select_11(student_id=i))
+    print(select_12())
