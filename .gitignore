@@ -25,3 +25,6 @@ HW_7_ORM_SQLAIchemy/.idea/vcs.xml
 HW_7_ORM_SQLAIchemy/migrations/__pycache__/env.cpython-310.pyc
 HW_7_ORM_SQLAIchemy/src/__pycache__/db.cpython-310.pyc
 HW_7_ORM_SQLAIchemy/src/__pycache__/models.cpython-310.pyc
+HW_8_Mongo_DB/__pycache__/connect.cpython-310.pyc
+HW_8_Mongo_DB/__pycache__/models.cpython-310.pyc
+HW_8_Mongo_DB/config.ini
