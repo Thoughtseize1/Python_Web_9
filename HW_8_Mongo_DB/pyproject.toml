@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "hw-8-mongo-db"
+version = "0.1.0"
+description = ""
+authors = ["Nikita Sherstianykh <n.sherstianykh@gmail.com>"]
+readme = "README.md"
+packages = [{include = "hw_8_mongo_db"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pymongo = {extras = ["srv", "tls"], version = "^4.3.3"}
+mongoengine = "^0.27.0"
+redis = "^4.5.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
