@@ -4,12 +4,11 @@ from mongoengine import *
 from models import Authors, Quotes
 
 
-with open("auhtors.json", encoding="utf-8") as f:
+with open("authors.json", encoding="utf-8") as f:
     authors_data = json.load(f)
 
-with open("quotes.json", encoding="utf-8") as f:
+with open("qoutes.json", encoding="utf-8") as f:
     quotes_data = json.load(f)
-
 
 for author_data in authors_data:
     author = Authors(
