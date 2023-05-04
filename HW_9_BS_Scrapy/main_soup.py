@@ -49,16 +49,14 @@ def collect_authors_on_page(session, page_url):
             author["description"],
         ) = grab_autrhor_biography(session, author_link)
 
-        qoute = {}
-        qoute["tags"] = [tag.text for tag in div.find_all("a", class_="tag")]
-        qoute["author"] = name_of_author
-        qoute["quote"] = div.span.text
+        quote = {}
+        quote["tags"] = [tag.text for tag in div.find_all("a", class_="tag")]
+        quote["author"] = name_of_author
+        quote["quote"] = div.span.text
+        qoutes.append(quote)
 
-        qoutes.append(qoute)
         if author not in authors:
             authors.append(author)
-        else:
-            print("Repeat found !!!")
 
 
 def collect_pages_urls(session, main_url):
@@ -79,3 +77,6 @@ if __name__ == "__main__":
             collect_authors_on_page(session, page_url)
         write_to_json("authors", authors)
         write_to_json("qoutes", qoutes)
+    print(
+        f"Parsing is complete. \nAuthors collected: {len(authors)} \nQuotes collected: {len(qoutes)}"
+    )
