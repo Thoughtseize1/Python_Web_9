@@ -35,6 +35,7 @@ def collect_authors_on_page(session, page_url):
     response = session.get(page_url)
     soup = BeautifulSoup(response.text, "html.parser")
     div_class_quote = soup.find_all("div", class_="quote")
+    print("Parsing...")
     for div in div_class_quote:
         author_link = base_url + div.find(
             "a", href=lambda href: href and "/author/" in href
@@ -75,8 +76,8 @@ if __name__ == "__main__":
     with requests.Session() as session:
         for page_url in collect_pages_urls(session, base_url):
             collect_authors_on_page(session, page_url)
-        write_to_json("authors", authors)
-        write_to_json("qoutes", qoutes)
+    write_to_json("authors", authors)
+    write_to_json("qoutes", qoutes)
     print(
         f"Parsing is complete. \nAuthors collected: {len(authors)} \nQuotes collected: {len(qoutes)}"
     )
