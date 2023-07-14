@@ -29,3 +29,7 @@ HW_8_Mongo_DB/__pycache__/connect.cpython-310.pyc
 HW_8_Mongo_DB/__pycache__/models.cpython-310.pyc
 HW_8_Mongo_DB/config.ini
 HW_9_BS_Scrapy/old_collect_funcs.py
+*.xml
+.idea
+*.pyc
+HW_10_Django/hw_quotes/quotes/config.ini
