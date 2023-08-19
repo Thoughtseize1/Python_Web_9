@@ -70,3 +70,10 @@ ul.pager {
     color: #000;
     cursor: not-allowed;
 }
+.previous[style*="display: none;"] {
+        display: none !important;
+    }
+
+.next[style*="display: none;"] {
+        display: none !important;
+    }
