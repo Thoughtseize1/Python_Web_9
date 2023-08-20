@@ -1,0 +1,26 @@
+{% extends 'useful_quotes/base.html' %}
+{% block content %}
+<h1>Create New Author</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="fullname" class="form-label">Full Name</label>
+        <input type="text" id="fullname" name="fullname" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="bio" class="form-label">Biography</label>
+        <textarea id="bio" name="bio" class="form-control" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="birthdate" class="form-label">Date of Birth</label>
+        <input type="date" id="birthdate" name="birthdate" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="born_location" class="form-label">Born Location</label>
+        <input type="text" id="born_location" name="born_location" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Author</button>
+</form>
+
+{% endblock %}

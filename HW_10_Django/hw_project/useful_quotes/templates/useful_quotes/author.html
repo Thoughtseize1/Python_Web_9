@@ -1,0 +1,14 @@
+{% extends 'useful_quotes/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="row">
+    <h2>{{author_name}} - {{author_birth_date}}</h2>
+</div>
+
+<div class="bio-block">
+    <h4>Biography</h4>
+    <p>{{author_description}}</p>
+</div>
+
+{% endblock %}
