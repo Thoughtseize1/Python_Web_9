@@ -1,26 +1,44 @@
 {% extends 'useful_quotes/base.html' %}
-
+{% load extract %}
 {% block content %}
 
-<div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork" bis_skin_checked="1">
-    <span class="text" itemprop="text">“The world as we have created it is a process of our thinking. It cannot be
-        changed without changing our thinking.”</span>
-    <span>by <small class="author" itemprop="author">Albert Einstein</small>
-        <a href="/author/Albert-Einstein">(about)</a>
-    </span>
-    <div class="tags" bis_skin_checked="1">
-        Tags:
-        <meta class="keywords" itemprop="keywords" content="change,deep-thoughts,thinking,world">
+<div class="row">
+    <div class="col-md-8">
+        {% for quote in quotes %}
+        <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
+            <span class="text" itemprop="text">{{quote.quote}}</span>
+            <span>by <small class="author" itemprop="author">{{quote.author|get_author}}</small>
+                <a href="/author/{{quote.author|get_author}}">(about)</a>
+            </span>
+            <div class="tags">
+                Tags:
+                {% for tag in quote|extract_tags %}
 
-        <a class="tag" href="/tag/change/page/1/">change</a>
+                <a class="tag" href="/tag/{{tag.name}}">{{tag.name}}</a>
 
-        <a class="tag" href="/tag/deep-thoughts/page/1/">deep-thoughts</a>
+                {% endfor %}
+            </div>
+        </div>
 
-        <a class="tag" href="/tag/thinking/page/1/">thinking</a>
+        {% endfor %}
+        <nav>
+            <ul class="pager">
+                <li class="previous" {% if not quotes.has_previous %} style="display: none;" {% endif %}>
+                    <a href="{% if quotes.has_previous %} {% url 'useful_quotes:root_paginate' quotes.previous_page_number %} {% else %} # {% endif %}">
+                        <span aria-hidden="true">←</span> Previous
+                    </a>
+                </li>
 
-        <a class="tag" href="/tag/world/page/1/">world</a>
+                <li class="next" {% if not quotes.has_next %} style="display: none;" {% endif %}>
+                    <a href="{% if quotes.has_next %} {% url 'useful_quotes:root_paginate' quotes.next_page_number %} {% else %} # {% endif %}">
+                        Next <span aria-hidden="true">→</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
     </div>
+
 </div>
 
 {% endblock %}
